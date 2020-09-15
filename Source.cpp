@@ -7,5 +7,6 @@ int main()
 	{
 		mGame.WriteOutput();
 		mGame.HandleInput();
+		mGame.Update();
 	}
 }

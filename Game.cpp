@@ -23,3 +23,7 @@ void Game::HandleInput()
 {
 	mInputManager.HandleInput();
 }
+
+void Game::Update()
+{
+}

@@ -13,6 +13,7 @@ public:
 	bool IsOpen();
 	void WriteOutput();
 	void HandleInput();
+	void Update();
 
 	StateManager mStateManager;
 	InputManager mInputManager;
