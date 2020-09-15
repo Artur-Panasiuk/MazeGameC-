@@ -2,6 +2,7 @@
 #include "OutputManager.h"
 #include "InputManager.h"
 #include "StateManager.h"
+#include "Menu.h"
 
 class Game
 {
@@ -11,6 +12,8 @@ public:
 	~Game();
 
 	bool IsOpen();
+	void EndGame();
+
 	void WriteOutput();
 	void HandleInput();
 	void Update();
@@ -18,4 +21,5 @@ public:
 	StateManager mStateManager;
 	InputManager mInputManager;
 	OutputManager mOutputManager;
+	Menu mMenu;
 };

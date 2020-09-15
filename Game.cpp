@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game()
-	: mIsOpen(true), mInputManager(this), mOutputManager(this)
+	: mIsOpen(true), mInputManager(this), mOutputManager(this), mMenu(this)
 {
 }
 
@@ -12,6 +12,11 @@ Game::~Game()
 bool Game::IsOpen()
 {
 	return mIsOpen;
+}
+
+void Game::EndGame()
+{
+	mIsOpen = false;
 }
 
 void Game::WriteOutput()
