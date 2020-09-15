@@ -5,6 +5,8 @@
 class Game;
 class OutputManager
 {
+	void WriteGameMap();
+
 	Game *mGame;
 public:
 	OutputManager(Game *lGame);
