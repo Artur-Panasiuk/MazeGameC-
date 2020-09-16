@@ -3,6 +3,7 @@
 #include "InputManager.h"
 #include "StateManager.h"
 #include "Menu.h"
+#include "Map.h"
 
 class Game
 {
@@ -22,4 +23,5 @@ public:
 	InputManager mInputManager;
 	OutputManager mOutputManager;
 	Menu mMenu;
+	Map mMap;
 };

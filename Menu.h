@@ -12,7 +12,7 @@ public:
 	Menu(Game* lGame);
 	~Menu();
 
-	std::string GetMenuString();
+	std::string GetString();
 
 	void MovePointerUp();
 	void MovePointerDown();

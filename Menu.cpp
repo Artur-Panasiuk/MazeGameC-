@@ -10,7 +10,7 @@ Menu::~Menu()
 {
 }
 
-std::string Menu::GetMenuString()
+std::string Menu::GetString()
 {
 	std::string output = "";
 	output += "\n\n";

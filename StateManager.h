@@ -10,4 +10,5 @@ public:
 
 	State GetState();
 	void SetState(State lState);
+	//zrobic dla kazdego state funkcje onActivate i onDeactivate
 };
