@@ -3,7 +3,7 @@
 #include <cstdlib>
 
 MapGenerator::MapGenerator(){
-    mapSizeY = 40;
+    mapSizeY = 34;
     mapSizeX = 95;
     travelDistance = 3;
     srand(time(NULL));
