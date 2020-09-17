@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <cmath>
 #include "Tile.h"
 #include "BaseState.h"
 #include "mapgenerator.h"
@@ -15,12 +16,15 @@ struct Player
 class Game;
 class Map : public BaseState
 {
+	float DistanceBetweenPoints(int x1, int y1, int x2, int y2);
 	void InitializeMap(int x, int y);
 	void GenerateMap();
+	void ApplyViewRadius(std::vector<std::vector<Tile>>& lMap);
 
 	std::vector<std::vector<Tile>> mMap;
 	int mEndTileX;
 	int mEndTileY;
+	const int mViewRadius;
 	Player mPlayer;
 	MapGenerator mMapGenerator;
 	Game* mGame;
