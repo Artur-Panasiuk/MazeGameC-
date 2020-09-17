@@ -13,10 +13,10 @@ Map::~Map()
 
 void Map::InitializeMap(int x, int y)
 {
-	mMap.resize(x);
+	mMap.resize(y);
 	for (int i = 0; i < y; ++i)
 	{
-		mMap[i].resize(y);
+		mMap[i].resize(x);
 		for (int j = 0; j < x; ++j)
 		{
 			mMap[i][j].character = '.';
@@ -27,8 +27,13 @@ void Map::InitializeMap(int x, int y)
 
 void Map::GenerateMap()
 {
-	//tymczasowe
-	InitializeMap(20, 20);
+	 std::vector<std::vector<char>> localMap = mMapGenerator.generateMap();
+	 InitializeMap(localMap[0].size(), localMap.size());
+	 for(int i = 0; i < localMap.size() ; i++){
+		 for(int j = 0; j < localMap[0].size(); j++){
+			 mMap[i][j].character = localMap[i][j];
+		 }
+	 }
 }
 
 std::vector<std::vector<Tile>> Map::GetMap()
@@ -87,6 +92,8 @@ void Map::GoLeft()
 void Map::OnActivate()
 {
 	GenerateMap();
+	mPlayer.x = mMap[0].size() / 2;
+	mPlayer.y = mMap.size() / 2;
 	mGame->mOutputManager.ResetOldDraw();
 }
 

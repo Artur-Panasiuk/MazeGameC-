@@ -34,15 +34,15 @@ void InputManager::InputForMenu(){
 
 void InputManager::InputForGame(){
 	if(mInput == 'w'){
-
+		mGame->mMap.GoUp();
 	}
 	else if(mInput == 's'){
-
+		mGame->mMap.GoDown();
 	}
 	else if(mInput == 'a'){
-
+		mGame->mMap.GoLeft();
 	}
 	else if(mInput == 'd'){
-		
+		mGame->mMap.GoRight();
 	}
 }

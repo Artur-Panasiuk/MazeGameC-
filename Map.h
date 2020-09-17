@@ -2,13 +2,14 @@
 #include <vector>
 #include "Tile.h"
 #include "BaseState.h"
+#include "mapgenerator.h"
 
 struct Player
 {
 	int x, y;
 	char character;
 	int color;
-	Player(): x(10), y(10), character('P'), color(14){}
+	Player(): x(20), y(20), character('P'), color(10){}
 };
 
 class Game;
@@ -21,7 +22,7 @@ class Map : public BaseState
 	int mEndTileX;
 	int mEndTileY;
 	Player mPlayer;
-	//generator map dodac
+	MapGenerator mMapGenerator;
 	Game* mGame;
 public:
 	Map(Game* lGame);
