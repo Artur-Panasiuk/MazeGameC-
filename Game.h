@@ -4,6 +4,7 @@
 #include "StateManager.h"
 #include "Menu.h"
 #include "Map.h"
+#include "GameOver.h"
 
 class Game
 {
@@ -24,4 +25,5 @@ public:
 	OutputManager mOutputManager;
 	Menu mMenu;
 	Map mMap;
+	GameOver mGameOver;
 };

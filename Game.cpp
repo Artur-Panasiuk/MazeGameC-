@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game()
-	: mIsOpen(true), mInputManager(this), mOutputManager(this), mMenu(this), mMap(this)
+	: mIsOpen(true), mInputManager(this), mOutputManager(this), mMenu(this), mMap(this), mGameOver(this)
 {
 }
 

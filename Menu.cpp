@@ -4,6 +4,7 @@
 Menu::Menu(Game* lGame)
 	: mGame(lGame), mOption(0), mOptionMax(1)
 {
+	mGame->mStateManager.AddState(State::Menu, this);
 }
 
 Menu::~Menu()
@@ -60,4 +61,12 @@ void Menu::Enter()
 	{
 		mGame->EndGame();
 	}
+}
+
+void Menu::OnActivate()
+{
+}
+
+void Menu::OnDeactivate()
+{
 }

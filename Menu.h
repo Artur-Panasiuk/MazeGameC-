@@ -1,8 +1,9 @@
 #pragma once
 #include <string>
+#include "BaseState.h"
 
 class Game;
-class Menu
+class Menu : public BaseState
 {
 	int mOption;
 	const int mOptionMax;
@@ -18,4 +19,7 @@ public:
 	void MovePointerDown();
 
 	void Enter();
+
+	void OnActivate();
+	void OnDeactivate();
 };

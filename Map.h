@@ -1,19 +1,22 @@
 #pragma once
 #include <vector>
 #include "Tile.h"
+#include "BaseState.h"
 
 struct Player
 {
 	int x, y;
-	char character = 'P';
+	char character;
 	int color;
+	Player(): x(10), y(10), character('P'), color(14){}
 };
 
 class Game;
-class Map
+class Map : public BaseState
 {
-	int mMapHeight;
-	int mMapWidth;
+	void InitializeMap(int x, int y);
+	void GenerateMap();
+
 	std::vector<std::vector<Tile>> mMap;
 	int mEndTileX;
 	int mEndTileY;
@@ -24,7 +27,6 @@ public:
 	Map(Game* lGame);
 	~Map();
 
-	void GenerateMap();
 	std::vector<std::vector<Tile>> GetMap();
 
 	void GoUp();
@@ -32,5 +34,7 @@ public:
 	void GoRight();
 	void GoLeft();
 
+	void OnActivate();
+	void OnDeactivate();
 	void Update();
 };

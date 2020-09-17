@@ -4,19 +4,40 @@
 Map::Map(Game* lGame)
 	:mGame(lGame)
 {
+	mGame->mStateManager.AddState(State::Game, this);
 }
 
 Map::~Map()
 {
 }
 
+void Map::InitializeMap(int x, int y)
+{
+	mMap.resize(x);
+	for (int i = 0; i < y; ++i)
+	{
+		mMap[i].resize(y);
+		for (int j = 0; j < x; ++j)
+		{
+			mMap[i][j].character = '.';
+			mMap[i][j].color = 15;
+		}
+	}
+}
+
 void Map::GenerateMap()
 {
+	//tymczasowe
+	InitializeMap(20, 20);
 }
 
 std::vector<std::vector<Tile>> Map::GetMap()
 {
-	return mMap;
+	std::vector<std::vector<Tile>> map;
+	map = mMap;
+	map[mPlayer.y][mPlayer.x].character = mPlayer.character;
+	map[mPlayer.y][mPlayer.x].color = mPlayer.color;
+	return map;
 }
 
 void Map::GoUp()
@@ -61,6 +82,16 @@ void Map::GoLeft()
 			--mPlayer.x;
 		}
 	}
+}
+
+void Map::OnActivate()
+{
+	GenerateMap();
+	mGame->mOutputManager.ResetOldDraw();
+}
+
+void Map::OnDeactivate()
+{
 }
 
 void Map::Update()

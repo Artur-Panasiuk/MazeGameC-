@@ -9,6 +9,17 @@ StateManager::~StateManager()
 {
 }
 
+bool StateManager::AddState(State lState, BaseState * lPointer)
+{
+	if (mStates.find(lState) != mStates.end())//duplicate state exist
+	{
+		return 0;
+	}
+
+	mStates.emplace(lState, lPointer);
+	return 1;
+}
+
 State StateManager::GetState()
 {
 	return mCurrentState;
@@ -16,5 +27,7 @@ State StateManager::GetState()
 
 void StateManager::SetState(State lState)
 {
+	mStates[mCurrentState]->OnDeactivate();
+	mStates[lState]->OnActivate();
 	mCurrentState = lState;
 }
