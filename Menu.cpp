@@ -4,13 +4,14 @@
 Menu::Menu(Game* lGame)
 	: mGame(lGame), mOption(0), mOptionMax(1)
 {
+	mGame->mStateManager.AddState(State::Menu, this);
 }
 
 Menu::~Menu()
 {
 }
 
-std::string Menu::GetMenuString()
+std::string Menu::GetString()
 {
 	std::string output = "";
 	output += "\n\n";
@@ -60,4 +61,12 @@ void Menu::Enter()
 	{
 		mGame->EndGame();
 	}
+}
+
+void Menu::OnActivate()
+{
+}
+
+void Menu::OnDeactivate()
+{
 }

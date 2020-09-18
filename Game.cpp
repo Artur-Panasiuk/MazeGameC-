@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game()
-	: mIsOpen(true), mInputManager(this), mOutputManager(this), mMenu(this)
+	: mIsOpen(true), mInputManager(this), mOutputManager(this), mMenu(this), mMap(this), mGameOver(this)
 {
 }
 
@@ -31,4 +31,8 @@ void Game::HandleInput()
 
 void Game::Update()
 {
+	if (mStateManager.GetState() == State::Game)
+	{
+		mMap.Update();
+	}
 }

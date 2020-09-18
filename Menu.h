@@ -1,8 +1,9 @@
 #pragma once
 #include <string>
+#include "BaseState.h"
 
 class Game;
-class Menu
+class Menu : public BaseState
 {
 	int mOption;
 	const int mOptionMax;
@@ -12,10 +13,13 @@ public:
 	Menu(Game* lGame);
 	~Menu();
 
-	std::string GetMenuString();
+	std::string GetString();
 
 	void MovePointerUp();
 	void MovePointerDown();
 
 	void Enter();
+
+	void OnActivate();
+	void OnDeactivate();
 };
