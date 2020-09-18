@@ -66,6 +66,7 @@ void OutputManager::ResizeWindow()
 	GetWindowRect(mConsole, &ConsoleRect);
 	MoveWindow(mConsole, ConsoleRect.left, ConsoleRect.top, 800, 600, TRUE);
 }
+
 void OutputManager::WriteOutput()
 {
 	if (mGame->mStateManager.GetState() == State::Game)
