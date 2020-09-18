@@ -45,4 +45,8 @@ void InputManager::InputForGame(){
 	else if(mInput == 'd'){
 		mGame->mMap.GoRight();
 	}
+	else if (mInput == 'm')
+	{
+		mGame->mMap.ToggleViewDistance();
+	}
 }

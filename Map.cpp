@@ -2,7 +2,7 @@
 #include "Game.h"
 
 Map::Map(Game* lGame)
-	:mGame(lGame), mViewRadius(6)
+	:mGame(lGame), mViewRadius(4), mShowWholeMap(false)
 {
 	mGame->mStateManager.AddState(State::Game, this);
 }
@@ -25,7 +25,7 @@ void Map::InitializeMap(int x, int y)
 		for (int j = 0; j < x; ++j)
 		{
 			mMap[i][j].character = '.';
-			mMap[i][j].color = 0;//czarny
+			mMap[i][j].color = 15;//czarny - 0, bialy - 15
 		}
 	}
 }
@@ -47,9 +47,9 @@ void Map::ApplyViewRadius(std::vector<std::vector<Tile>>& lMap)
 	{
 		for (int j = 0; j < lMap[0].size(); ++j)
 		{
-			if (DistanceBetweenPoints(mPlayer.x, mPlayer.y, j, i) < mViewRadius)
+			if (DistanceBetweenPoints(mPlayer.x, mPlayer.y, j, i) >= mViewRadius)
 			{
-				lMap[i][j].color = 15;
+				lMap[i][j].color = 0;
 			}
 		}
 	}
@@ -59,7 +59,8 @@ std::vector<std::vector<Tile>> Map::GetMap()
 {
 	std::vector<std::vector<Tile>> map;
 	map = mMap;
-	ApplyViewRadius(map);
+	if(!mShowWholeMap)
+		ApplyViewRadius(map);
 	map[mPlayer.y][mPlayer.x].character = mPlayer.character;
 	map[mPlayer.y][mPlayer.x].color = mPlayer.color;
 	return map;
@@ -107,6 +108,11 @@ void Map::GoLeft()
 			--mPlayer.x;
 		}
 	}
+}
+
+void Map::ToggleViewDistance()
+{
+	mShowWholeMap = !mShowWholeMap;
 }
 
 void Map::OnActivate()

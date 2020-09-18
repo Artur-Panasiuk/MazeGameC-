@@ -25,6 +25,8 @@ class Map : public BaseState
 	int mEndTileX;
 	int mEndTileY;
 	const int mViewRadius;
+	bool mShowWholeMap;
+
 	Player mPlayer;
 	MapGenerator mMapGenerator;
 	Game* mGame;
@@ -38,6 +40,7 @@ public:
 	void GoDown();
 	void GoRight();
 	void GoLeft();
+	void ToggleViewDistance();
 
 	void OnActivate();
 	void OnDeactivate();
