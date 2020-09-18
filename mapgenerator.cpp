@@ -24,299 +24,6 @@ void MapGenerator::InitializeGenerator(){
     }
 }
 
-void MapGenerator::properlyGeneratorMap(int x, int y, int oldx, int oldy){
-	if (x <= 0 || x >= mapSizeX - 1 || y <= 0 || y >= mapSizeY - 1) {
-        return;
-    }
-	if (oldx > x)//droga od prawej
-	{
-		if (mazeMap[y - 1][x] != '#' || mazeMap[y + 1][x] != '#' || mazeMap[y][x - 1] != '#')
-		{
-			std::cout << "end1" << std::endl;
-			system("pause");
-			return;
-		}
-	}
-	else if (oldx < x)//droga od lewej
-	{
-		if (mazeMap[y - 1][x] != '#' || mazeMap[y + 1][x] != '#' || mazeMap[y][x + 1] != '#')
-		{
-			std::cout << "end2" << std::endl;
-			system("pause");
-			return;;
-		}
-	}
-	else if (oldy < y)//droga od gory
-	{
-		if (mazeMap[y][x + 1] != '#' || mazeMap[y + 1][x] != '#' || mazeMap[y][x - 1] != '#')
-		{
-			std::cout << "end3" << std::endl;
-			system("pause");
-			return;;
-		}
-	}
-	else//droga od dolu
-	{
-		if (mazeMap[y - 1][x] != '#' || mazeMap[y][x + 1] != '#' || mazeMap[y][x - 1] != '#')
-		{
-			std::cout << "end4" << std::endl;
-			system("pause");
-			return;;
-		}
-	}
-
-
-    mazeMap[y][x] = ' ';
-	std::cout << "-----------------------\n";
-	system("pause");
-	int random = rand() % 10;
-	std::cout << random << std::endl;
-	if (random < 6)//korytarz
-	{
-		mazeMap[y][x] = 'K';
-		random = 2 + rand() % travelDistance;
-		std::cout << random << std::endl;
-		if (oldx > x)//droga w lewo
-		{
-			if (x - random < 0)
-				return;
-
-			for (int i = 1; i < random; ++i)
-			{
-				mazeMap[y][x - i] = ' ';
-			}
-			properlyGeneratorMap(x - random, y, x, y);
-		}
-		else if (oldx < x)//droga w prawo
-		{
-			if (x + random >= mazeMap[0].size())
-				return;
-
-			for (int i = 1; i < random; ++i)
-			{
-				mazeMap[y][x + i] = ' ';
-			}
-			properlyGeneratorMap(x + random, y, x, y);
-		}
-		else if (oldy < y)//droga w dol
-		{
-			if (y + random >= mazeMap.size())
-				return;
-
-			for (int i = 1; i < random; ++i)
-			{
-				mazeMap[y + i][x] = ' ';
-			}
-			properlyGeneratorMap(x, y+random, x, y);
-		}
-		else//droga w gore
-		{
-			if (y - random < 0)
-				return;
-
-			for (int i = 1; i < random; ++i)
-			{
-				mazeMap[y - i][x] = ' ';
-			}
-			properlyGeneratorMap(x, y - random, x, y);
-		}
-	}
-	else if (random > 6)//skret
-	{
-		mazeMap[y][x] = 'S';
-		random = rand() % 2;
-		std::cout << random << std::endl;
-		if (random == 1)//skret w prawo
-		{
-			if (oldx > x)//droga od prawej
-			{
-				if (y - 1 < 0)
-					return;
-				properlyGeneratorMap(x, y-1, x, y);
-			}
-			else if (oldx < x)//droga od lewej
-			{
-				if (y+1 >= mazeMap.size())
-					return;
-				properlyGeneratorMap(x, y+1, x, y);
-			}
-			else if (oldy < y)//droga od gory
-			{
-				if (x-1 < 0)
-					return;
-				properlyGeneratorMap(x-1, y, x, y);
-			}
-			else//droga od dolu
-			{
-				if (x+1 >= mazeMap[0].size())
-					return;
-				properlyGeneratorMap(x+1, y, x, y);
-			}
-		}
-		else//skret w lewo
-		{
-			if (oldx > x)//droga od prawej
-			{
-				if (y + 1 >= mazeMap.size())
-					return;
-				properlyGeneratorMap(x, y + 1, x, y);
-			}
-			else if (oldx < x)//droga od lewej
-			{
-				if (y - 1 < 0)
-					return;
-				properlyGeneratorMap(x, y - 1, x, y);
-			}
-			else if (oldy < y)//droga od gory
-			{
-				if (x + 1 >= mazeMap[0].size())
-					return;
-				properlyGeneratorMap(x + 1, y, x, y);
-			}
-			else//droga od dolu
-			{
-				if (x - 1 < 0)
-					return;
-				properlyGeneratorMap(x - 1, y, x, y);
-			}
-		}
-	}
-	else//skrzy¿owanie
-	{
-	mazeMap[y][x] = 'X';
-		random = rand() % 4;
-		std::cout << random << std::endl;
-		if (random == 0)//skrzyzowanie lewo-przod
-		{
-			if (oldx > x)//droga od prawej
-			{
-				if (y + 1 >= mazeMap.size() || x - 1 < 0)
-					return;
-				properlyGeneratorMap(x, y + 1, x, y);
-				properlyGeneratorMap(x - 1, y, x, y);
-			}
-			else if (oldx < x)//droga od lewej
-			{
-				if (y - 1 < 0 || x + 1 >= mazeMap[0].size())
-					return;
-				properlyGeneratorMap(x, y - 1, x, y);
-				properlyGeneratorMap(x + 1, y, x, y);
-			}
-			else if (oldy < y)//droga od gory
-			{
-				if (x + 1 >= mazeMap[0].size() || y + 1 >= mazeMap.size())
-					return;
-				properlyGeneratorMap(x + 1, y, x, y);
-				properlyGeneratorMap(x, y + 1, x, y);
-			}
-			else//droga od dolu
-			{
-				if (x - 1 < 0 || y - 1 < 0)
-					return;
-				properlyGeneratorMap(x - 1, y, x, y);
-				properlyGeneratorMap(x, y - 1, x, y);
-			}
-		}
-		else if (random == 1)//skrzyzowanie prawo-przod
-		{
-			if (oldx > x)//droga od prawej
-			{
-				if (y - 1 < 0 || x - 1 < 0)
-					return;
-				properlyGeneratorMap(x, y - 1, x, y);
-				properlyGeneratorMap(x - 1, y, x, y);
-			}
-			else if (oldx < x)//droga od lewej
-			{
-				if (y + 1 >= mazeMap.size() || x + 1 >= mazeMap[0].size())
-					return;
-				properlyGeneratorMap(x, y + 1, x, y);
-				properlyGeneratorMap(x + 1, y, x, y);
-			}
-			else if (oldy < y)//droga od gory
-			{
-				if (x - 1 < 0 || y + 1 >= mazeMap.size())
-					return;
-				properlyGeneratorMap(x - 1, y, x, y);
-				properlyGeneratorMap(x, y + 1, x, y);
-			}
-			else//droga od dolu
-			{
-				if (x + 1 >= mazeMap[0].size() || y - 1 < 0)
-					return;
-				properlyGeneratorMap(x + 1, y, x, y);
-				properlyGeneratorMap(x, y - 1, x, y);
-			}
-		}
-		else if(random == 2)//skrzyzowanie lewo-prawo
-		{
-			if (oldx > x)//droga od prawej
-			{
-				if (y - 1 < 0 || y + 1 >= mazeMap.size())
-					return;
-				properlyGeneratorMap(x, y - 1, x, y);
-				properlyGeneratorMap(x, y + 1, x, y);
-			}
-			else if (oldx < x)//droga od lewej
-			{
-				if (y - 1 < 0 || y + 1 >= mazeMap.size())
-					return;
-				properlyGeneratorMap(x, y - 1, x, y);
-				properlyGeneratorMap(x, y + 1, x, y);
-			}
-			else if (oldy < y)//droga od gory
-			{
-				if (x - 1 < 0 || x + 1 >= mazeMap[0].size())
-					return;
-				properlyGeneratorMap(x - 1, y, x, y);
-				properlyGeneratorMap(x + 1, y, x, y);
-			}
-			else//droga od dolu
-			{
-				if (x - 1 < 0 || x + 1 >= mazeMap[0].size())
-					return;
-				properlyGeneratorMap(x - 1, y, x, y);
-				properlyGeneratorMap(x + 1, y, x, y);
-			}
-		}
-		else//skrzyzowanie lewo-prawo-przod
-		{
-			if (oldx > x)//droga od prawej
-			{
-				if (y - 1 < 0 || y + 1 >= mazeMap.size() || x - 1 < 0)
-					return;
-				properlyGeneratorMap(x, y - 1, x, y);
-				properlyGeneratorMap(x, y + 1, x, y);
-				properlyGeneratorMap(x - 1, y, x, y);
-			}
-			else if (oldx < x)//droga od lewej
-			{
-				if (y - 1 < 0 || y + 1 >= mazeMap.size() || x + 1 >= mazeMap[0].size())
-					return;
-				properlyGeneratorMap(x, y - 1, x, y);
-				properlyGeneratorMap(x, y + 1, x, y);
-				properlyGeneratorMap(x + 1, y, x, y);
-			}
-			else if (oldy < y)//droga od gory
-			{
-				if (x - 1 < 0 || x + 1 >= mazeMap[0].size() || y + 1 >= mazeMap.size())
-					return;
-				properlyGeneratorMap(x - 1, y, x, y);
-				properlyGeneratorMap(x + 1, y, x, y);
-				properlyGeneratorMap(x , y + 1, x, y);
-			}
-			else//droga od dolu
-			{
-				if (x - 1 < 0 || x + 1 >= mazeMap[0].size() || y - 1 < 0)
-					return;
-				properlyGeneratorMap(x - 1, y, x, y);
-				properlyGeneratorMap(x + 1, y, x, y);
-				properlyGeneratorMap(x, y - 1, x, y);
-			}
-		}
-	}
-}
-
 void MapGenerator::SetUpFragments()
 {
 	std::vector<MazeFragment*> empty;
@@ -450,5 +157,40 @@ std::vector<std::vector<char>> MapGenerator::generateMap(){
 	ProperlyGenerateMap(mapSizeX / 2, mapSizeY / 2, Dir::Entry_Up);
 	FillEdge();
     return mazeMap;
+}
+
+std::pair<int, int> MapGenerator::findFarthesPoint(int x, int y, int index){
+
+	std::pair <int, int> FarthestPointOutput; //y, x
+
+	for(int a = 0 + index; a <= x; a++){
+		if(mazeMap[0][a] == ' '){
+			FarthestPointOutput.first = 0;
+			FarthestPointOutput.second = a;
+			return FarthestPointOutput;
+		}
+	}
+	for(int b = 0 + index; b <= y; b++){
+		if(mazeMap[b][x] == ' '){
+			FarthestPointOutput.first = b;
+			FarthestPointOutput.second = x;
+			return FarthestPointOutput;
+		}
+	}
+	for(int c = x - index; c >= 0; c--){
+		if(mazeMap[y][c] == ' '){
+			FarthestPointOutput.first = y;
+			FarthestPointOutput.second = c;
+			return FarthestPointOutput;
+		}
+	}
+	for(int d = y - index; d >= 0; d--){
+		if(mazeMap[d][0] == ' '){
+			FarthestPointOutput.first = d;
+			FarthestPointOutput.second = 0;
+			return FarthestPointOutput;
+		}
+	}
+	return findFarthesPoint(x-1, y-1, index+1);
 }
 

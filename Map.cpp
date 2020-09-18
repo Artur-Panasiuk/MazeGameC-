@@ -39,6 +39,9 @@ void Map::GenerateMap()
 			 mMap[i][j].character = localMap[i][j];
 		 }
 	 }
+	 auto para = mMapGenerator.findFarthesPoint(mMap[0].size(), mMap.size(), 0);
+	 mEndTileY = para.first;
+	 mEndTileX = para.second;
 }
 
 void Map::ApplyViewRadius(std::vector<std::vector<Tile>>& lMap)
@@ -63,6 +66,8 @@ std::vector<std::vector<Tile>> Map::GetMap()
 		ApplyViewRadius(map);
 	map[mPlayer.y][mPlayer.x].character = mPlayer.character;
 	map[mPlayer.y][mPlayer.x].color = mPlayer.color;
+	map[mEndTileY][mEndTileX].character = '@';
+	map[mEndTileY][mEndTileX].color = 11;
 	return map;
 }
 
