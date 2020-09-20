@@ -1,6 +1,7 @@
 #include "mapgenerator.h"
 #include <time.h>
 #include <cstdlib>
+#include <queue>
 
 MapGenerator::MapGenerator(){
     mapSizeY = 33;
@@ -159,38 +160,49 @@ std::vector<std::vector<char>> MapGenerator::generateMap(){
     return mazeMap;
 }
 
-std::pair<int, int> MapGenerator::findFarthesPoint(int x, int y, int index){
+std::pair<int, int> MapGenerator::findFarthesPoint(int x, int y){
 
-	std::pair <int, int> FarthestPointOutput; //y, x
+	std::queue<std::pair<int, int>> que;
 
-	for(int a = 0 + index; a <= x; a++){
-		if(mazeMap[0][a] == ' '){
-			FarthestPointOutput.first = 0;
-			FarthestPointOutput.second = a;
-			return FarthestPointOutput;
+	que.push(std::make_pair(y, x));
+	std::pair<int, int> currentCoordinates;
+
+	std::vector<std::vector<bool>> isVisited;
+
+	isVisited.resize(mazeMap.size());
+
+	for(int i = 0; i < mazeMap.size(); i++){
+		isVisited[i].resize(mazeMap[i].size());
+		for(int j=0; j < mazeMap[0].size(); j++){
+			isVisited[i][j] = false;
 		}
 	}
-	for(int b = 0 + index; b <= y; b++){
-		if(mazeMap[b][x] == ' '){
-			FarthestPointOutput.first = b;
-			FarthestPointOutput.second = x;
-			return FarthestPointOutput;
+
+	while(!que.empty()){
+		currentCoordinates = que.front();
+		que.pop();
+		isVisited[currentCoordinates.first][currentCoordinates.second] = true;
+		if(currentCoordinates.first + 1 < mazeMap.size() && 
+		isVisited[currentCoordinates.first + 1][currentCoordinates.second] && 
+		mazeMap[currentCoordinates.first + 1][currentCoordinates.second] != '#'){
+			que.push(std::make_pair(currentCoordinates.first + 1, currentCoordinates.second));
+		}
+		if(currentCoordinates.second + 1 < mazeMap[0].size() && 
+		isVisited[currentCoordinates.first][currentCoordinates.second + 1] && 
+		mazeMap[currentCoordinates.first][currentCoordinates.second + 1] != '#'){
+			que.push(std::make_pair(currentCoordinates.first, currentCoordinates.second + 1));
+		}
+		if(currentCoordinates.first - 1 >= 0 && 
+		isVisited[currentCoordinates.first - 1][currentCoordinates.second] && 
+		mazeMap[currentCoordinates.first - 1][currentCoordinates.second] != '#'){
+			que.push(std::make_pair(currentCoordinates.first - 1, currentCoordinates.second));
+		}
+		if(currentCoordinates.second - 1 >= 0 && 
+		isVisited[currentCoordinates.first][currentCoordinates.second - 1] && 
+		mazeMap[currentCoordinates.first][currentCoordinates.second - 1] != '#'){
+			que.push(std::make_pair(currentCoordinates.first, currentCoordinates.second - 1));
 		}
 	}
-	for(int c = x - index; c >= 0; c--){
-		if(mazeMap[y][c] == ' '){
-			FarthestPointOutput.first = y;
-			FarthestPointOutput.second = c;
-			return FarthestPointOutput;
-		}
-	}
-	for(int d = y - index; d >= 0; d--){
-		if(mazeMap[d][0] == ' '){
-			FarthestPointOutput.first = d;
-			FarthestPointOutput.second = 0;
-			return FarthestPointOutput;
-		}
-	}
-	return findFarthesPoint(x-1, y-1, index+1);
+	return currentCoordinates;
 }
 

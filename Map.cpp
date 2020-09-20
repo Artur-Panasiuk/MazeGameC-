@@ -39,9 +39,9 @@ void Map::GenerateMap()
 			 mMap[i][j].character = localMap[i][j];
 		 }
 	 }
-	 auto para = mMapGenerator.findFarthesPoint(mMap[0].size(), mMap.size(), 0);
-	 mEndTileY = para.first;
-	 mEndTileX = para.second;
+	auto para = mMapGenerator.findFarthesPoint(mMap[0].size(), mMap.size());
+	mEndTileY = para.first;
+	mEndTileX = para.second;
 }
 
 void Map::ApplyViewRadius(std::vector<std::vector<Tile>>& lMap)

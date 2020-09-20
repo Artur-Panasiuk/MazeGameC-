@@ -54,6 +54,6 @@ public:
     int travelDistance;
 
     std::vector<std::vector<char>> generateMap();
-	std::pair<int, int>findFarthesPoint(int x, int y, int index);
+	std::pair<int, int>findFarthesPoint(int x, int y);
 
 };
