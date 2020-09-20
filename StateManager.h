@@ -6,6 +6,7 @@
 class StateManager
 {
 	State mCurrentState;
+
 	std::unordered_map<State, BaseState*> mStates;
 public:
 	StateManager();

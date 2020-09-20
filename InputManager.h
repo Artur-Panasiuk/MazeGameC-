@@ -10,7 +10,7 @@ class InputManager
 	
 	void InputForMenu();
 	void InputForGame();
-
+	void InputForGameOver();
 public:
 	InputManager(Game *lGame);
 	~InputManager();

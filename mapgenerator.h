@@ -38,15 +38,12 @@ class MapGenerator{
 	std::vector<std::vector<bool>> mIsVisited;
 
     void InitializeGenerator();
-    int getRandomDirection(int access);
-    void properlyGeneratorMap(int x, int y, int oldx, int oldy);//backup/obsolete
 	void SetUpFragments();
 	void ReadFragments();
 	void InsertFragment(int x, int y, MazeFragment* lFragment);
 	void FillEdge();
 	void ProperlyGenerateMap(int x, int y, Dir lDir);
 public:
-
     MapGenerator();
 
     int mapSizeX; 

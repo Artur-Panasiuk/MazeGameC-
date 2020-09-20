@@ -18,6 +18,10 @@ void InputManager::HandleInput(){
 	else if(mGame->mStateManager.GetState() == State::Game){
 		InputForGame();
 	}
+	else if (mGame->mStateManager.GetState() == State::GameOver)
+	{
+		InputForGameOver();
+	}
 }
 
 void InputManager::InputForMenu(){
@@ -48,5 +52,18 @@ void InputManager::InputForGame(){
 	else if (mInput == 'm')
 	{
 		mGame->mMap.ToggleViewDistance();
+	}
+}
+
+void InputManager::InputForGameOver()
+{
+	if (mInput == 'a') {
+		mGame->mGameOver.MovePointerLeft();
+	}
+	else if (mInput == 'd') {
+		mGame->mGameOver.MovePointerRight();
+	}
+	else if (mInput == EnterCode) {
+		mGame->mGameOver.Enter();
 	}
 }

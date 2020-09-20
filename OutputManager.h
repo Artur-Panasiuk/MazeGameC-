@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <Windows.h>
+#include <iomanip>
 #include "Tile.h"
 
 class Game;

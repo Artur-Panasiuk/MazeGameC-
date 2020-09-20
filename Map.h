@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <cmath>
+#include <ctime>
 #include "Tile.h"
 #include "BaseState.h"
 #include "mapgenerator.h"
@@ -30,6 +31,8 @@ class Map : public BaseState
 	Player mPlayer;
 	MapGenerator mMapGenerator;
 	Game* mGame;
+	time_t mStartTime;
+	time_t mFinishTime;
 public:
 	Map(Game* lGame);
 	~Map();
@@ -45,4 +48,5 @@ public:
 	void OnActivate();
 	void OnDeactivate();
 	void Update();
+	float GetDiffTime();
 };

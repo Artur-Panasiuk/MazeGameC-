@@ -66,7 +66,6 @@ void OutputManager::ResizeWindow()
 	GetWindowRect(mConsole, &ConsoleRect);
 	MoveWindow(mConsole, ConsoleRect.left, ConsoleRect.top, 800, 600, TRUE);
 }
-
 void OutputManager::WriteOutput()
 {
 	if (mGame->mStateManager.GetState() == State::Game)
@@ -77,6 +76,11 @@ void OutputManager::WriteOutput()
 	{
 		system("cls");
 		std::cout << mGame->mMenu.GetString();
+	}
+	else if (mGame->mStateManager.GetState() == State::GameOver)
+	{
+		system("cls");
+		std::cout << mGame->mGameOver.GetString();
 	}
 }
 

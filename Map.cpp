@@ -39,9 +39,13 @@ void Map::GenerateMap()
 			 mMap[i][j].character = localMap[i][j];
 		 }
 	 }
-	auto para = mMapGenerator.findFarthesPoint(mMap[0].size(), mMap.size());
-	mEndTileY = para.first;
-	mEndTileX = para.second;
+
+	 mPlayer.x = mMap[0].size() / 2;
+	 mPlayer.y = mMap.size() / 2;
+
+	 auto para = mMapGenerator.findFarthesPoint(mPlayer.x, mPlayer.y);
+	 mEndTileY = para.first;
+	 mEndTileX = para.second;
 }
 
 void Map::ApplyViewRadius(std::vector<std::vector<Tile>>& lMap)
@@ -62,12 +66,13 @@ std::vector<std::vector<Tile>> Map::GetMap()
 {
 	std::vector<std::vector<Tile>> map;
 	map = mMap;
-	if(!mShowWholeMap)
-		ApplyViewRadius(map);
-	map[mPlayer.y][mPlayer.x].character = mPlayer.character;
-	map[mPlayer.y][mPlayer.x].color = mPlayer.color;
 	map[mEndTileY][mEndTileX].character = '@';
 	map[mEndTileY][mEndTileX].color = 11;
+	map[mPlayer.y][mPlayer.x].character = mPlayer.character;
+	map[mPlayer.y][mPlayer.x].color = mPlayer.color;
+
+	if(!mShowWholeMap)
+		ApplyViewRadius(map);
 	return map;
 }
 
@@ -123,13 +128,13 @@ void Map::ToggleViewDistance()
 void Map::OnActivate()
 {
 	GenerateMap();
-	mPlayer.x = mMap[0].size() / 2;
-	mPlayer.y = mMap.size() / 2;
 	mGame->mOutputManager.ResetOldDraw();
+	mStartTime = time(NULL);
 }
 
 void Map::OnDeactivate()
 {
+	mFinishTime = time(NULL);
 }
 
 void Map::Update()
@@ -138,4 +143,9 @@ void Map::Update()
 	{
 		mGame->mStateManager.SetState(State::GameOver);
 	}
+}
+
+float Map::GetDiffTime()
+{
+	return difftime(mFinishTime, mStartTime) / 60;
 }

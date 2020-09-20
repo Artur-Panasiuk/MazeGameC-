@@ -15,6 +15,10 @@ std::string Menu::GetString()
 {
 	std::string output = "";
 	output += "\n\n";
+
+	output += "\t Przed toba jest labirynt z ktorego musisz znalezc wyjscie\n";
+	output += "\t oznaczone znakiem '@' . Poruszasz sie WASD. Opcje zatwierdzasz ENTERem.\n\n";
+
 	if (mOption == 0)
 	{
 		output += "\t> Graj <\n";

@@ -147,12 +147,6 @@ void MapGenerator::ProperlyGenerateMap(int x, int y, Dir lDir)
 
 }
 
-int MapGenerator::getRandomDirection(int access){
-    int randomNumber = rand() % access;
-
-    return randomNumber;
-}
-
 std::vector<std::vector<char>> MapGenerator::generateMap(){
     InitializeGenerator();
 	ProperlyGenerateMap(mapSizeX / 2, mapSizeY / 2, Dir::Entry_Up);
@@ -170,7 +164,6 @@ std::pair<int, int> MapGenerator::findFarthesPoint(int x, int y){
 	std::vector<std::vector<bool>> isVisited;
 
 	isVisited.resize(mazeMap.size());
-
 	for(int i = 0; i < mazeMap.size(); i++){
 		isVisited[i].resize(mazeMap[i].size());
 		for(int j=0; j < mazeMap[0].size(); j++){
@@ -178,27 +171,28 @@ std::pair<int, int> MapGenerator::findFarthesPoint(int x, int y){
 		}
 	}
 
+	
 	while(!que.empty()){
 		currentCoordinates = que.front();
 		que.pop();
 		isVisited[currentCoordinates.first][currentCoordinates.second] = true;
 		if(currentCoordinates.first + 1 < mazeMap.size() && 
-		isVisited[currentCoordinates.first + 1][currentCoordinates.second] && 
+		isVisited[currentCoordinates.first + 1][currentCoordinates.second] == false && 
 		mazeMap[currentCoordinates.first + 1][currentCoordinates.second] != '#'){
 			que.push(std::make_pair(currentCoordinates.first + 1, currentCoordinates.second));
 		}
 		if(currentCoordinates.second + 1 < mazeMap[0].size() && 
-		isVisited[currentCoordinates.first][currentCoordinates.second + 1] && 
+		isVisited[currentCoordinates.first][currentCoordinates.second + 1] == false &&
 		mazeMap[currentCoordinates.first][currentCoordinates.second + 1] != '#'){
 			que.push(std::make_pair(currentCoordinates.first, currentCoordinates.second + 1));
 		}
 		if(currentCoordinates.first - 1 >= 0 && 
-		isVisited[currentCoordinates.first - 1][currentCoordinates.second] && 
+		isVisited[currentCoordinates.first - 1][currentCoordinates.second] == false &&
 		mazeMap[currentCoordinates.first - 1][currentCoordinates.second] != '#'){
 			que.push(std::make_pair(currentCoordinates.first - 1, currentCoordinates.second));
 		}
 		if(currentCoordinates.second - 1 >= 0 && 
-		isVisited[currentCoordinates.first][currentCoordinates.second - 1] && 
+		isVisited[currentCoordinates.first][currentCoordinates.second - 1] == false &&
 		mazeMap[currentCoordinates.first][currentCoordinates.second - 1] != '#'){
 			que.push(std::make_pair(currentCoordinates.first, currentCoordinates.second - 1));
 		}
